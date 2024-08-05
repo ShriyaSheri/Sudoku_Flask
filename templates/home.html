@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Sudoku</h1>
+        <p>Challenge yourself with our Sudoku puzzles!</p>
+        <div class="buttons">
+            <button onclick="window.location.href='/game'">Start New Game</button>
+            <button id="instructions-button">Instructions</button>
+            <button onclick="window.location.href='/settings'">Settings</button>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Instructions</h2>
+            <p>Fill the grid with numbers from 1 to 9 in such a way that every row, column, and 3x3 box contains each number only once.</p>
+            <p>Click on a cell to select it, then click on a number from the digits panel to fill in the cell. Use the clear button to remove a number from a cell.</p>
+            <p>Good luck and have fun!</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

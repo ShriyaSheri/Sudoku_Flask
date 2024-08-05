@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div id="game-container">
+            <div id="sudoku-grid">
+                {% for row in puzzle %}
+                <div class="row">
+                    {% for cell in row %}
+                    <input type="text" maxlength="1" pattern="[1-9]*" value="{{ cell if cell != 0 else '' }}"
+                        {{ 'disabled' if cell !=0 else '' }}>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <div id="controls">
+                <div id="timer">00:00</div>
+                <button id="pause-resume" onclick="togglePauseResume()">Pause</button>
+                <button id="new-game" onclick="startNewGame()">New Game</button>
+                <div id="digits-panel">
+                    {% for digit in range(1, 10) %}
+                    <button class="digit-button">{{ digit }}</button>
+                    {% endfor %}
+                    <button id="clear-button" class="digit-button">Clear</button>
+                </div>
+                <div style="display: flex;">
+                    <button onclick="submitSolution()">Submit</button>
+                    <button id="undo-button" class="digit-button">Undo</button>
+                    <button id="redo-button" class="digit-button">Redo</button>
+                </div>
+                <div id="attempts">Attempts: 0</div>
+                <div id="wins">Wins: 0</div>
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="victory-modal" class="modal">
+        <div class="modal-content">
+            <h2>Congratulations! You Won!</h2>
+            <p>Your time: <span id="victory-time"></span></p>
+            <button onclick="startNewGame()">Play Again</button>
+        </div>
+    </div>
+    <div id="defeat-modal" class="modal">
+        <div class="modal-content">
+            <h2>Sorry, You Lost!</h2>
+            <p>The correct solution was:</p>
+            <div id="correct-solution">
+                <!-- Correct Sudoku solution grid -->
+            </div>
+            <button onclick="startNewGame()">Try Again</button>
+        </div>
+    </div>
+    <!-- Uncomment these when audio files are added -->
+    <!-- <audio id="victory-sound" src="{{ url_for('static', filename='victory.mp3') }}"></audio>
+    <audio id="defeat-sound" src="{{ url_for('static', filename='defeat.mp3') }}"></audio>
+    <audio id="input-sound" src="{{ url_for('static', filename='input.mp3') }}"></audio>
+    <audio id="erase-sound" src="{{ url_for('static', filename='erase.mp3') }}"></audio> -->
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+
+</html>
